@@ -1,0 +1,33 @@
+<!-- src/app/components/post-detail/post-detail.component.html -->
+<a routerLink="/" class="bg-pink-500 text-white py-2 px-4 rounded-md text-sm font-semibold hover:bg-green-600 mb-4 inline-block">Back to Posts</a>
+
+<article *ngIf="post" class="max-w-4xl mx-auto p-6 bg-white rounded-lg shadow-lg">
+  <h1 class="text-3xl font-extrabold text-gray-900 mb-4">{{ post.title }}</h1>
+  <div [innerHTML]="post.content" class="prose mt-2 text-gray-700"></div>
+</article>
+
+<section class="mt-8 p-6 bg-gray-50 border border-gray-200 rounded-md shadow-sm">
+  <h2 class="text-xl font-semibold text-green-800 mb-4">Comments</h2>
+  <ul class="list-none flex flex-col gap-4">
+    <li *ngFor="let comment of comments" class="p-4 bg-white border border-gray-200 rounded-md shadow-sm hover:shadow-md transition-shadow">
+      <p class="text-sm text-gray-700">{{ comment.content }}</p>
+      <p class="text-sm text-gray-500"><strong>{{ comment.user }}</strong> ({{ comment.date | date:'short' }})</p>
+      <button (click)="editComment(comment)" class="text-sm bg-blue-500 text-white px-3 py-1 rounded-md hover:bg-teal-500 w-fit mt-2">Edit</button>
+    </li>
+  </ul>
+
+  <div *ngIf="editingComment" class="mt-6">
+    <h3 class="text-lg font-semibold mb-3">Edit Comment</h3>
+    <app-comment-form
+      [postId]="post.id"
+      [existingComment]="editingComment"
+      (commentAdded)="onCommentSaved($event)"
+    ></app-comment-form>
+    <button class="bg-red-500 text-white px-3 py-1 rounded-md hover:bg-red-600 w-fit mt-2">Cancel</button>
+  </div>
+
+  <div *ngIf="!editingComment" class="mt-6">
+    <h3 class="text-lg font-semibold mb-3">Add a Comment</h3>
+    <app-comment-form [postId]="post.id" (commentAdded)="onCommentSaved($event)"></app-comment-form>
+  </div>
+</section>

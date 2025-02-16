@@ -1,0 +1,22 @@
+<!-- src/app/components/comment-form/comment-form.component.html -->
+<form [formGroup]="commentForm" (ngSubmit)="onSubmit()" class="flex flex-col gap-2">
+    <div>
+      <label for="user" class="text-sm font-bold mr-2">Name:</label>
+      <input id="user" formControlName="user" class="border border-gray-300 rounded-md p-2" />
+    </div>
+    <div *ngIf="commentForm.controls['user'].invalid && (commentForm.controls['user'].dirty || commentForm.controls['user'].touched)">
+      <small *ngIf="commentForm.controls['user'].errors?.['required']">Name is required.</small>
+    </div>
+  
+    <div class="flex flex-col gap-2">
+      <label for="content" class="text-sm font-bold mr-2">Comment:</label>
+      <textarea id="content" formControlName="content" class="border border-gray-300 rounded-md p-2 min-h-20"></textarea>
+    </div>
+    <div *ngIf="commentForm.controls['content'].invalid && (commentForm.controls['content'].dirty || commentForm.controls['content'].touched)">
+      <small *ngIf="commentForm.controls['content'].errors?.['required']">Comment is required.</small>
+      <small *ngIf="commentForm.controls['content'].errors?.['minlength']">Comment must be at least 3 characters long.</small>
+    </div>
+  
+    <button class="bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600 w-fit" type="submit" [disabled]="commentForm.invalid">Submit</button>
+  </form>
+  

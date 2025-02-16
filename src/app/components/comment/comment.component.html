@@ -1,0 +1,15 @@
+<!-- src/app/components/comment/comment.component.html -->
+<div class="comment">
+    <p class="text-sm"><strong>{{ comment.user }}</strong> ({{ comment.date | date: 'short' }})</p>
+    <p class="text-sm">{{ comment.content }}</p>
+    <button (click)="toggleReplyForm()" class="text-sm bg-blue-500 text-white px-2 py-1 rounded-md hover:bg-blue-600 w-fit">Reply</button>
+  
+    <div *ngIf="showReplyForm" class="reply-form">
+      <app-comment-form [postId]="postId" [parentId]="comment.id" (commentAdded)="addReply($event)"></app-comment-form>
+    </div>
+  
+    <div class="replies" *ngIf="comment.replies && comment.replies.length">
+      <app-comment *ngFor="let reply of comment.replies" [comment]="reply" [postId]="postId"></app-comment>
+    </div>
+  </div>
+  

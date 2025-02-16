@@ -1,0 +1,13 @@
+<!-- src/app/components/post-list/post-list.component.html -->
+<section>
+  <h1 class="text-5xl font-extrabold text-center text-gradient bg-clip-text text-transparent bg-gradient-to-r from-blue-500 to-teal-400 mb-8">Blog Posts</h1>
+  <ul class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 list-none m-2"> 
+    <li *ngFor="let post of posts" class="border border-gray-200 rounded-2xl p-6 shadow-lg hover:shadow-2xl transition-shadow duration-300 transform hover:scale-105 bg-white">
+      <a [routerLink]="['/post', post.id]">
+        <h2 class="text-green-500 font-serif text-2xl font-semibold mb-4 hover:text-green-700">{{ post.title }}</h2>
+        <p class="text-gray-600 text-lg font-light mb-4">{{ post.description }}</p>
+        <p class="text-sm text-gray-500"><strong>Author:</strong> {{ post.author }} | <strong>Published on:</strong> {{ post.publish_date }}</p>
+      </a>
+    </li>
+  </ul>
+</section>
